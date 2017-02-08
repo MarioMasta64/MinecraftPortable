@@ -13,6 +13,10 @@ if not exist %CD%\bin\minecraft.jar goto DOWNLOADMINECRAFT
 if not exist %CD%\data\.minecraft\launcher.pack.lzma set nag=COPY %APPDATA%\.minecraft TO %CD%\data IF YOU HAVE EXISTING SAVEDATA AND THEN LAUNCH DEFAULT PROFILE
 
 :WGETUPDATE
+
+set return=MENU
+if not exist %CD%\bin\wget.exe goto DOWNLOADWGET
+
 wget https://eternallybored.org/misc/wget/current/wget.exe
 move wget.exe %CD%\bin\
 if exist %CD%\bin\wget.exe.1 goto WGETREPLACE
@@ -27,6 +31,7 @@ goto MENU
 cls
 
 if not exist %CD%\bin\wget.exe goto DOWNLOADWGET
+
 %CD%\bin\wget.exe http://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar
 
 REM title READMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADME
@@ -41,7 +46,7 @@ goto FILECHECK
 :DOWNLOADWGET
 
 :CHECKWGETDOWNLOADER
-if exist %CD%\bin\downloadwget.vbs goto EXECUTE WGET DOWNLOADER
+if exist %CD%\bin\downloadwget.vbs goto EXECUTEWGETDOWNLOADER
 
 :CREATEWGETDOWNLOADER
 echo ' Set your settings > %CD%\bin\downloadwget.vbs
@@ -73,12 +78,11 @@ echo End if >> %CD%\bin\downloadwget.vbs
 echo. >> %CD%\bin\downloadwget.vbs
 echo Set objXMLHTTP = Nothing >> %CD%\bin\downloadwget.vbs
 
-
 :EXECUTEWGETDOWNLOADER
 cscript.exe %CD%\bin\downloadwget.vbs
 move wget.exe %CD%\bin\
 
-goto DOWNLOADMINECRAFT
+goto %RETURN%
 
 :MENU
 title PORTABLE MINECRAFT LAUNCHER - MAIN MENU
@@ -220,17 +224,28 @@ goto ERROR
 
 :JAVALAUNCH
 cls
+
+if not exist %CD%\bin\wget.exe goto DOWNLOADWGET
+
 start %CD%\bin\Minecraft.jar
 goto end
 
 :64BIT
 cls
+
+set return=64BIT
+if not exist %CD%\bin\wget.exe goto DOWNLOADWGET
+
 if not exist %CD%\bin\java64\bin\javaw.exe goto GETJAVA64
 start "" "%CD%\bin\java64\bin\javaw.exe" -jar "%CD%\bin\Minecraft.jar
 goto END
 
 :32BIT
 cls
+
+set return=32BIT
+if not exist %CD%\bin\wget.exe goto DOWNLOADWGET
+
 if not exist %CD%\bin\java\bin\javaw.exe goto GETJAVA32
 start "" "%CD%\bin\java\bin\javaw.exe" -jar "%CD%\bin\Minecraft.jar"
 goto END

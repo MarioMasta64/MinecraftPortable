@@ -5,7 +5,6 @@ set nag=BE SURE TO TURN CAPS LOCK OFF! (never said it was on just make sure)
 :FOLDERCHECK
 if not exist %CD%\bin mkdir %CD%\bin
 if not exist %CD%\data\profiles mkdir %CD%\data\profiles
-if not exist %CD%\bin\java\bin mkdir %CD%\bin\java\bin
 
 :FILECHECK
 if not exist %CD%\bin\minecraft.jar goto DOWNLOADMINECRAFT

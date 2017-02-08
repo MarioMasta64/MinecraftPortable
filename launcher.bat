@@ -6,7 +6,6 @@ set nag=BE SURE TO TURN CAPS LOCK OFF! (never said it was on just make sure)
 if not exist %CD%\bin mkdir %CD%\bin
 if not exist %CD%\data\profiles mkdir %CD%\data\profiles
 if not exist %CD%\bin\java\bin mkdir %CD%\bin\java\bin
-if not exist %CD%\bin\java64\bin mkdir %CD%\bin\java64\bin
 
 :FILECHECK
 if not exist %CD%\bin\minecraft.jar goto DOWNLOADMINECRAFT
@@ -33,7 +32,7 @@ goto FILECHECK
 :DOWNLOADWGET
 
 :CHECKWGETDOWNLOADER
-if exist %CD%\bin\downloadwget.vbs goto EXECUTE WGET DOWNLOADER
+if exist %CD%\bin\downloadwget.vbs goto EXECUTEWGETDOWNLOADER
 
 :CREATEWGETDOWNLOADER
 echo ' Set your settings > %CD%\bin\downloadwget.vbs
@@ -205,39 +204,34 @@ echo type y for system or anything else for portable java
 echo press enter afterwards
 set /p choice="choice: "
 if %choice%==y goto JAVALAUNCH
-if exist "%COMMONPROGRAMFILES(X86)%" goto 64BIT
-if exist "%COMMONPROGRAMFILES%" goto 32BIT
+goto JAVACHECK
 goto ERROR
-
 
 :JAVALAUNCH
 cls
 start %CD%\bin\Minecraft.jar
 goto end
 
-:64BIT
+:JAVACHECK
 cls
-if not exist %CD%\bin\java64\bin\javaw.exe goto GETJAVA64
-start "" "%CD%\bin\java64\bin\javaw.exe" -jar "%CD%\bin\Minecraft.jar
+if not exist %CD%\bin\java\bin\javaw.exe goto JAVAINSTALLERCHECK
+start "" "%CD%\bin\java\bin\javaw.exe" -jar "%CD%\bin\Minecraft.jar
 goto END
 
-:32BIT
+:JAVAINSTALLERCHECK
 cls
-if not exist %CD%\bin\java\bin\javaw.exe goto GETJAVA32
-start "" "%CD%\bin\java\bin\javaw.exe" -jar "%CD%\bin\Minecraft.jar"
-goto END
-
-:GETJAVA64
-cls
-echo insert get java64 here
+if not exist jPortable_8_Update_121.paf.exe goto DOWNLOADJAVA
+move jPortable_8_Update_121.paf.exe %CD%\bin
+start %CD%\bin\jPortable_8_Update_121.paf.exe
+title READMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADME
+echo INSTALL JAVA TO %CD%\data\java AND PRESS ENTER TO CONTINUE
 pause
-goto 64BIT
+goto JAVACHECK
 
-:GETJAVA32
+:DOWNLOADJAVA
 cls
-echo insert get java32 here
-pause
-goto 32BIT
+%CD%\bin\wget.exe http://downloads.sourceforge.net/portableapps/jPortable_8_Update_121.paf.exe
+goto JAVAINSTALLERCHECK
 
 :UPDATE
 

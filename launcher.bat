@@ -221,10 +221,10 @@ goto END
 :JAVAINSTALLERCHECK
 cls
 if not exist jPortable_8_Update_121.paf.exe goto DOWNLOADJAVA
-move jPortable_8_Update_121.paf.exe %CD%\bin
-start %CD%\bin\jPortable_8_Update_121.paf.exe
+start jPortable_8_Update_121.paf.exe
 title READMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADME
-echo INSTALL JAVA TO %CD%\data\java AND PRESS ENTER TO CONTINUE
+echo INSTALL JAVA TO %CD%\data\commonfiles\Java AND PRESS ENTER TO CONTINUE
+del jPortable_8_Update_121.paf.exe
 pause
 goto JAVACHECK
 

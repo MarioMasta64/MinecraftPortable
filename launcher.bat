@@ -214,8 +214,8 @@ goto end
 
 :JAVACHECK
 cls
-if not exist %CD%\bin\java\bin\javaw.exe goto JAVAINSTALLERCHECK
-start "" "%CD%\bin\java\bin\javaw.exe" -jar "%CD%\bin\Minecraft.jar
+if not exist %CD%\bin\commonfiles\java\bin\javaw.exe goto JAVAINSTALLERCHECK
+start "" "%CD%\bin\commonfiles\java\bin\javaw.exe" -jar "%CD%\bin\Minecraft.jar
 goto END
 
 :JAVAINSTALLERCHECK
@@ -224,8 +224,8 @@ if not exist jPortable_8_Update_121.paf.exe goto DOWNLOADJAVA
 start jPortable_8_Update_121.paf.exe
 title READMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADME
 echo INSTALL JAVA TO %CD%\data\commonfiles\Java AND PRESS ENTER TO CONTINUE
-del jPortable_8_Update_121.paf.exe
 pause
+del jPortable_8_Update_121.paf.exe
 goto JAVACHECK
 
 :DOWNLOADJAVA

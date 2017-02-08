@@ -223,7 +223,7 @@ cls
 if not exist jPortable_8_Update_121.paf.exe goto DOWNLOADJAVA
 start jPortable_8_Update_121.paf.exe
 title READMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADME
-echo INSTALL JAVA TO %CD%\data\commonfiles\Java AND PRESS ENTER TO CONTINUE
+echo INSTALL JAVA TO %CD%\bin\commonfiles\Java AND PRESS ENTER TO CONTINUE
 pause
 del jPortable_8_Update_121.paf.exe
 goto JAVACHECK

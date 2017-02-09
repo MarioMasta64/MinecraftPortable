@@ -2,9 +2,34 @@
 title PORTABLE MINECRAFT LAUNCHER
 set nag=BE SURE TO TURN CAPS LOCK OFF! (never said it was on just make sure)
 
+:REPLACERREMOVER
+if exist replacer.bat
+del replacer.bat
+
 :FOLDERCHECK
+if not exist %CD%\doc mkdir %CD%\doc
 if not exist %CD%\bin mkdir %CD%\bin
 if not exist %CD%\data\profiles mkdir %CD%\data\profiles
+
+:VERSION
+cls
+echo 5 > %CD%\doc\version.txt
+set /p current_version=<%CD%\doc\version.txt
+
+:CREDITS
+if exist %CD%\doc\license.txt goto FILECHECK
+echo ================================================== > %CD%\doc\license.txt
+echo =              Script by MarioMasta64            = >> %CD%\doc\license.txt
+echo =          Script Version: v1.0.6-alpha          = >> %CD%\doc\license.txt
+echo ================================================== >> %CD%\doc\license.txt
+echo =You may Modify this WITH consent of the original= >> %CD%\doc\license.txt
+echo = creator, as long as you include a copy of this = >> %CD%\doc\license.txt
+echo =      as you include a copy of the License      = >> %CD%\doc\license.txt
+echo ================================================== >> %CD%\doc\license.txt
+echo =    You may also modify this script without     = >> %CD%\doc\license.txt
+echo =         consent for PERSONAL USE ONLY          = >> %CD%\doc\license.txt
+echo ================================================== >> %CD%\doc\license.txt
+start notepad.exe %CD%\doc\license.txt
 
 :FILECHECK
 if not exist %CD%\bin\minecraft.jar goto DOWNLOADMINECRAFT
@@ -23,6 +48,7 @@ goto MENU
 
 :DOWNLOADMINECRAFT
 cls
+if not exist %CD%\bin\wget.exe set return=DOWNLOADMINECRAFT
 if not exist %CD%\bin\wget.exe goto DOWNLOADWGET
 %CD%\bin\wget.exe http://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar
 move %CD%\Minecraft.jar %CD%\bin
@@ -66,7 +92,7 @@ echo Set objXMLHTTP = Nothing >> %CD%\bin\downloadwget.vbs
 :EXECUTEWGETDOWNLOADER
 cscript.exe %CD%\bin\downloadwget.vbs
 move wget.exe %CD%\bin\
-goto DOWNLOADMINECRAFT
+goto %RETURN%
 
 :MENU
 title PORTABLE MINECRAFT LAUNCHER - MAIN MENU
@@ -84,7 +110,7 @@ if %choice%==1 goto NEW
 if %choice%==2 goto DEFAULT
 if %choice%==3 goto SELECT
 if %choice%==4 goto DELETE
-if %choice%==4 goto UPDATE
+if %choice%==5 goto UPDATECHECK
 if %choice%==6 goto END
 goto ERROR
 
@@ -190,10 +216,8 @@ goto MENU
 
 :DELETEMAIN
 cls
-DEL README.TXT
-ECHO TO PROTECT MY SAVES I MADE THIS THE HARDEST OPTION TO DO. PLEASE LEAVE THE COMPUTER. > README.TXT
-COPY README.TXT %CD%\data\README.TXT
-START NOTEPAD.EXE README.TXT
+ECHO TO PROTECT MY SAVES I MADE THIS THE HARDEST OPTION TO DO. PLEASE LEAVE THE COMPUTER. > %CD%\doc\README.TXT
+START NOTEPAD.EXE %CD%\doc\README.TXT
 GOTO MENU
 
 :OSCHECK
@@ -229,10 +253,77 @@ goto JAVACHECK
 
 :DOWNLOADJAVA
 cls
+if not exist %CD%\bin\wget.exe set return=DOWNLOADJAVA
+if not exist %CD%\bin\wget.exe goto DOWNLOADWGET
 %CD%\bin\wget.exe http://downloads.sourceforge.net/portableapps/jPortable_8_Update_121.paf.exe
 goto JAVAINSTALLERCHECK
 
+:UPDATECHECK
+cls
+if not exist %CD%\bin\wget.exe set return=UPDATECHECK
+if not exist %CD%\bin\wget.exe goto DOWNLOADWGET
+%CD%\bin\wget.exe https://github.com/MarioMasta64/MinecraftPortable/raw/master/version.txt
+set /p new_version=<version.txt
+if %current_version% EQU %new_version% goto LATEST
+if %current_version% LSS %new_version% goto NEWUPDATE
+if %current_version% GTR %new_version% goto NEWEST
+goto ERROR
+
+:LATEST
+cls
+title PORTABLE MINECRAFT LAUNCHER - LATEST BUILD :D
+echo you are using the latest version!!
+echo Current Version: v%current_version%
+echo New Version: v%new_version%
+echo ENTER TO CONTINUE
+pause
+goto MENU
+
+:NEWUPDATE
+cls
+echo %NAG%
+set nag=SELECTION TIME!
+title PORTABLE MINECRAFT LAUNCHER - OLD BUILD D:
+echo you are using an older version
+echo enter yes or no
+echo Current Version: v%current_version%
+echo New Version: v%new_version%
+set /p choice="Update?: "
+if %choice%==yes goto UPDATE
+if %choice%==no goto MENU
+set nag="please enter YES or NO"
+goto NEWUPDATE
+
 :UPDATE
+cls
+if not exist %CD%\bin\wget.exe set return=UPDATE
+if not exist %CD%\bin\wget.exe goto DOWNLOADWGET
+wget https://raw.githubusercontent.com/MarioMasta64/MinecraftPortable/master/launcher.bat
+if exist launcher.bat.1 goto REPLACERCREATE
+goto UPDATE FAILED
+
+:REPLACERCREATE
+cls
+echo del launcher.bat > replacer.bat
+echo rename launcher.bat.1 replacer.bat
+echo start launcher.bat >> replacer.bat
+echo move version.txt %CD%\doc\version.txt >> replacer.bat
+echo del version.txt.1 >> replacer.bat
+start replacer.bat
+goto ERROR
+
+:NEWEST
+cls
+title PORTABLE MINECRAFT LAUNCHER - TEST BUILD :0
+echo YOURE USING A TEST BUILD MEANING YOURE EITHER
+echo CLOSE TO ME OR YOURE SOME SORT OF PIRATE
+echo Current Version: v%current_version%
+echo New Version: v%new_version%
+echo ENTER TO CONTINUE
+pause
+del version.txt
+del version.txt.1
+goto MENU
 
 :ERROR
 cls

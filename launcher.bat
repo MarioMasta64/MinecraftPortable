@@ -12,14 +12,14 @@ if not exist %CD%\data\profiles mkdir %CD%\data\profiles
 
 :VERSION
 cls
-echo 7 > %CD%\doc\version.txt
+echo 8 > %CD%\doc\version.txt
 set /p current_version=<%CD%\doc\version.txt
 
 :CREDITS
 if exist %CD%\doc\license.txt goto FILECHECK
 echo ================================================== > %CD%\doc\license.txt
 echo =              Script by MarioMasta64            = >> %CD%\doc\license.txt
-echo =          Script Version: v1.0.%current_version%-alpha          = >> %CD%\doc\license.txt
+echo =          Script Version: v1.0.%current_version%-beta           = >> %CD%\doc\license.txt
 echo ================================================== >> %CD%\doc\license.txt
 echo =You may Modify this WITH consent of the original= >> %CD%\doc\license.txt
 echo = creator, as long as you include a copy of this = >> %CD%\doc\license.txt
@@ -304,12 +304,13 @@ goto UPDATE FAILED
 :REPLACERCREATE
 cls
 echo del launcher.bat > replacer.bat
-echo rename launcher.bat.1 launcher.bat >> replacer.bat
-echo start launcher.bat >> replacer.bat
+echo rename launcher.bat.1 launcher.bat >> replacer.txt
 echo move version.txt %CD%\doc\version.txt >> replacer.bat
 echo del version.txt.1 >> replacer.bat
+echo start launcher.bat >> replacer.bat
+echo exit >> replacer.bat
 start replacer.bat
-goto ERROR
+exit
 
 :NEWEST
 cls
@@ -319,6 +320,14 @@ echo CLOSE TO ME OR YOURE SOME SORT OF PIRATE
 echo Current Version: v%current_version%
 echo New Version: v%new_version%
 echo ENTER TO CONTINUE
+pause
+del version.txt
+del version.txt.1
+goto MENU
+
+:UPDATEFAILED
+cls
+echo UPDATE FAILE PRESS ENTER TO GOTO THE MAIN MENU
 pause
 del version.txt
 del version.txt.1

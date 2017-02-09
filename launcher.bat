@@ -19,7 +19,7 @@ set /p current_version=<%CD%\doc\version.txt
 if exist %CD%\doc\license.txt goto FILECHECK
 echo ================================================== > %CD%\doc\license.txt
 echo =              Script by MarioMasta64            = >> %CD%\doc\license.txt
-echo =          Script Version: v1.0.6-alpha          = >> %CD%\doc\license.txt
+echo =          Script Version: v1.0.%current_version%-alpha          = >> %CD%\doc\license.txt
 echo ================================================== >> %CD%\doc\license.txt
 echo =You may Modify this WITH consent of the original= >> %CD%\doc\license.txt
 echo = creator, as long as you include a copy of this = >> %CD%\doc\license.txt
@@ -297,7 +297,7 @@ goto NEWUPDATE
 cls
 if not exist %CD%\bin\wget.exe set return=UPDATE
 if not exist %CD%\bin\wget.exe goto DOWNLOADWGET
-wget https://raw.githubusercontent.com/MarioMasta64/MinecraftPortable/master/launcher.bat
+%CD%\bin\wget.exe https://raw.githubusercontent.com/MarioMasta64/MinecraftPortable/master/launcher.bat
 if exist launcher.bat.1 goto REPLACERCREATE
 goto UPDATE FAILED
 

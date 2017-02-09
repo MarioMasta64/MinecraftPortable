@@ -3,8 +3,7 @@ title PORTABLE MINECRAFT LAUNCHER
 set nag=BE SURE TO TURN CAPS LOCK OFF! (never said it was on just make sure)
 
 :REPLACERREMOVER
-if exist replacer.bat
-del replacer.bat
+if exist replacer.bat del replacer.bat
 
 :FOLDERCHECK
 if not exist %CD%\doc mkdir %CD%\doc

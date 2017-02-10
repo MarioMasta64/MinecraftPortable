@@ -4,8 +4,6 @@ set nag=BE SURE TO TURN CAPS LOCK OFF! (never said it was on just make sure)
 
 :REPLACERREMOVER
 if exist replacer.bat del replacer.bat
-if exist version.txt del version.txt
-if exist version.txt.1 del version.txt.1
 
 :FOLDERCHECK
 if not exist %CD%\doc mkdir %CD%\doc
@@ -14,14 +12,14 @@ if not exist %CD%\data\profiles mkdir %CD%\data\profiles
 
 :VERSION
 cls
-echo 9 > %CD%\doc\version.txt
+echo 10 > %CD%\doc\version.txt
 set /p current_version=<%CD%\doc\version.txt
 
 :CREDITS
 if exist %CD%\doc\license.txt goto FILECHECK
 echo ================================================== > %CD%\doc\license.txt
 echo =              Script by MarioMasta64            = >> %CD%\doc\license.txt
-echo =          Script Version: v1.0.%current_version%-beta           = >> %CD%\doc\license.txt
+echo =           Script Version: v1.%current_version%-beta            = >> %CD%\doc\license.txt
 echo ================================================== >> %CD%\doc\license.txt
 echo =You may Modify this WITH consent of the original= >> %CD%\doc\license.txt
 echo = creator, as long as you include a copy of this = >> %CD%\doc\license.txt
@@ -261,6 +259,7 @@ goto JAVAINSTALLERCHECK
 
 :UPDATECHECK
 cls
+if exist version.txt del versiont.txt
 if not exist %CD%\bin\wget.exe set return=UPDATECHECK
 if not exist %CD%\bin\wget.exe goto DOWNLOADWGET
 %CD%\bin\wget.exe https://github.com/MarioMasta64/MinecraftPortable/raw/master/version.txt
@@ -327,7 +326,7 @@ exit
 
 :UPDATEFAILED
 cls
-echo UPDATE FAILE PRESS ENTER TO GOTO THE MAIN MENU
+echo UPDATE FAILED PRESS ENTER TO GOTO THE MAIN MENU
 pause
 start launcher.bat
 exit

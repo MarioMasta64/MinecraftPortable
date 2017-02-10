@@ -14,7 +14,7 @@ if not exist %CD%\data\profiles mkdir %CD%\data\profiles
 
 :VERSION
 cls
-echo 14 > %CD%\doc\version.txt
+echo 15 > %CD%\doc\version.txt
 set /p current_version=<%CD%\doc\version.txt
 
 :CREDITS

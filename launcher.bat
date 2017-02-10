@@ -14,7 +14,7 @@ if not exist %CD%\data\profiles mkdir %CD%\data\profiles
 
 :VERSION
 cls
-echo 13 > %CD%\doc\version.txt
+echo 14 > %CD%\doc\version.txt
 set /p current_version=<%CD%\doc\version.txt
 
 :CREDITS
@@ -112,7 +112,7 @@ if %choice%==2 goto DEFAULT
 if %choice%==3 goto SELECT
 if %choice%==4 goto DELETE
 if %choice%==5 goto UPDATECHECK
-if %choice%==6 goto END
+if %choice%==6 exit
 goto ERROR
 
 :NEW
@@ -234,13 +234,13 @@ goto ERROR
 :JAVALAUNCH
 cls
 start %CD%\bin\Minecraft.jar
-goto END
+exit
 
 :JAVACHECK
 cls
 if not exist %CD%\bin\commonfiles\java\bin\javaw.exe goto JAVAINSTALLERCHECK
 start "" "%CD%\bin\commonfiles\java\bin\javaw.exe" -jar "%CD%\bin\Minecraft.jar
-goto END
+exit
 
 :JAVAINSTALLERCHECK
 cls
@@ -337,6 +337,4 @@ exit
 cls
 echo ERROR OCCURED
 pause
-goto END
-
-:END
+exit

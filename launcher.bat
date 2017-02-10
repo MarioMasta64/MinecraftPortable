@@ -4,6 +4,8 @@ set nag=BE SURE TO TURN CAPS LOCK OFF! (never said it was on just make sure)
 
 :REPLACERREMOVER
 if exist replacer.bat del replacer.bat
+if exist version.txt del version.txt
+if exist version.txt.1 del version.txt.1
 
 :FOLDERCHECK
 if not exist %CD%\doc mkdir %CD%\doc
@@ -232,7 +234,7 @@ goto ERROR
 :JAVALAUNCH
 cls
 start %CD%\bin\Minecraft.jar
-goto end
+goto END
 
 :JAVACHECK
 cls
@@ -276,9 +278,8 @@ echo Current Version: v%current_version%
 echo New Version: v%new_version%
 echo ENTER TO CONTINUE
 pause
-del version.txt
-del version.txt.1
-goto MENU
+start launcher.bat
+exit
 
 :NEWUPDATE
 cls
@@ -301,14 +302,12 @@ if not exist %CD%\bin\wget.exe set return=UPDATE
 if not exist %CD%\bin\wget.exe goto DOWNLOADWGET
 %CD%\bin\wget.exe https://raw.githubusercontent.com/MarioMasta64/MinecraftPortable/master/launcher.bat
 if exist launcher.bat.1 goto REPLACERCREATE
-goto UPDATE FAILED
+goto UPDATEFAILED
 
 :REPLACERCREATE
 cls
 echo del launcher.bat > replacer.bat
 echo rename launcher.bat.1 launcher.bat >> replacer.bat
-echo move version.txt %CD%\doc\version.txt >> replacer.bat
-echo del version.txt.1 >> replacer.bat
 echo start launcher.bat >> replacer.bat
 echo exit >> replacer.bat
 start replacer.bat
@@ -323,17 +322,15 @@ echo Current Version: v%current_version%
 echo New Version: v%new_version%
 echo ENTER TO CONTINUE
 pause
-del version.txt
-del version.txt.1
-goto MENU
+start launcher.bat
+exit
 
 :UPDATEFAILED
 cls
 echo UPDATE FAILE PRESS ENTER TO GOTO THE MAIN MENU
 pause
-del version.txt
-del version.txt.1
-goto MENU
+start launcher.bat
+exit
 
 :ERROR
 cls

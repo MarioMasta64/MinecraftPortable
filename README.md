@@ -1,9 +1,6 @@
 # MinecraftPortable
 
-Known Issues: exits upon first launch. not sure why will investigate :/
-
-Portable Java Downloader Isnt Implemented Yet
-Changelog
+Known Issues: unknown?
 
 v1.0.1-beta First Release!
 
@@ -14,3 +11,5 @@ v1.0.2-alt Fixed Crashing Issues However It Downloads WGET If It Doesnt Exist No
 v1.0.3-beta Cleanup Now Uses The Source From v1.0.1-beta
 
 v1.0.4-beta Added Java Downloader For Portable Java May Have Issues If WGET Doesnt Exist But jPortable Does
+
+v1.0.9-beta Added updater

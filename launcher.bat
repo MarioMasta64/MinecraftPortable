@@ -306,7 +306,7 @@ goto UPDATE FAILED
 :REPLACERCREATE
 cls
 echo del launcher.bat > replacer.bat
-echo rename launcher.bat.1 launcher.bat >> replacer.txt
+echo rename launcher.bat.1 launcher.bat >> replacer.bat
 echo move version.txt %CD%\doc\version.txt >> replacer.bat
 echo del version.txt.1 >> replacer.bat
 echo start launcher.bat >> replacer.bat

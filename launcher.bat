@@ -276,6 +276,8 @@ echo Current Version: v%current_version%
 echo New Version: v%new_version%
 echo ENTER TO CONTINUE
 pause
+del version.txt
+del version.txt.1
 goto MENU
 
 :NEWUPDATE

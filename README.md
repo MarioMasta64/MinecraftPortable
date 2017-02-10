@@ -2,14 +2,17 @@
 
 Known Issues: unknown?
 
-v1.0.1-beta First Release!
+Ive made many changes to the project it now has
 
-v1.0.2-beta Fixed Issue With wget.exe not being downloaded if a minecraft profile exists also fixed endless update bug and entered return entries for java updaters
+    New Profile Creation
+    Launching Existing Profiles
+    A Main Default Directory For Imported Minecraft
+    Deleting Profiles
+    Updating The Program Easily
+    Ability To Use Portable Or System Java (Portable Java Is Downloaded If Its Not Installed)
+    And A Basic License
 
-v1.0.2-alt Fixed Crashing Issues However It Downloads WGET If It Doesnt Exist Not Sure If Its A Problem (Is For Me) But This Will Just Be An Alternate Build
+@Dr.Hacknik gave me some ideas
 
-v1.0.3-beta Cleanup Now Uses The Source From v1.0.1-beta
-
-v1.0.4-beta Added Java Downloader For Portable Java May Have Issues If WGET Doesnt Exist But jPortable Does
-
-v1.0.9-beta Added updater
+Hint: theres a special version of this that may be seen in the future. but for now it shall remain a MYSTERY~
+all you need to download is launcher.bat

@@ -4,6 +4,8 @@ set nag=BE SURE TO TURN CAPS LOCK OFF! (never said it was on just make sure)
 
 :REPLACERREMOVER
 if exist replacer.bat del replacer.bat
+del version.txt
+del version.txt.1
 
 :FOLDERCHECK
 if not exist %CD%\doc mkdir %CD%\doc
@@ -12,7 +14,7 @@ if not exist %CD%\data\profiles mkdir %CD%\data\profiles
 
 :VERSION
 cls
-echo 11 > %CD%\doc\version.txt
+echo 12 > %CD%\doc\version.txt
 set /p current_version=<%CD%\doc\version.txt
 
 :CREDITS

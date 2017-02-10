@@ -12,14 +12,14 @@ if not exist %CD%\data\profiles mkdir %CD%\data\profiles
 
 :VERSION
 cls
-echo 10 > %CD%\doc\version.txt
+echo 11 > %CD%\doc\version.txt
 set /p current_version=<%CD%\doc\version.txt
 
 :CREDITS
 if exist %CD%\doc\license.txt goto FILECHECK
 echo ================================================== > %CD%\doc\license.txt
 echo =              Script by MarioMasta64            = >> %CD%\doc\license.txt
-echo =           Script Version: v1.%current_version%-beta            = >> %CD%\doc\license.txt
+echo =            Script Version: v%current_version%-beta             = >> %CD%\doc\license.txt
 echo ================================================== >> %CD%\doc\license.txt
 echo =You may Modify this WITH consent of the original= >> %CD%\doc\license.txt
 echo = creator, as long as you include a copy of this = >> %CD%\doc\license.txt

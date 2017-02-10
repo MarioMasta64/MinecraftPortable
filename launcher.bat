@@ -14,7 +14,7 @@ if not exist %CD%\data\profiles mkdir %CD%\data\profiles
 
 :VERSION
 cls
-echo 12 > %CD%\doc\version.txt
+echo 13 > %CD%\doc\version.txt
 set /p current_version=<%CD%\doc\version.txt
 
 :CREDITS
@@ -261,7 +261,7 @@ goto JAVAINSTALLERCHECK
 
 :UPDATECHECK
 cls
-if exist version.txt del versiont.txt
+if exist version.txt del version.txt
 if not exist %CD%\bin\wget.exe set return=UPDATECHECK
 if not exist %CD%\bin\wget.exe goto DOWNLOADWGET
 %CD%\bin\wget.exe https://github.com/MarioMasta64/MinecraftPortable/raw/master/version.txt

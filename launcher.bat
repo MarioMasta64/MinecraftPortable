@@ -14,14 +14,14 @@ if not exist %CD%\extra mkdir %CD%\extra
 if not exist %CD%\data\profiles mkdir %CD%\data\profiles
 :VERSION
 cls
-echo 19 > %CD%\doc\version.txt
+echo 20 > %CD%\doc\version.txt
 set /p current_version=<%CD%\doc\version.txt
 :CREDITS
 cls
 if exist %CD%\doc\license.txt goto FILECHECK
 echo ================================================== > %CD%\doc\license.txt
 echo =              Script by MarioMasta64            = >> %CD%\doc\license.txt
-echo =            Script Version: v%current_version%- beta          = >> %CD%\doc\license.txt
+echo =            Script Version: v%current_version%-beta           = >> %CD%\doc\license.txt
 echo ================================================== >> %CD%\doc\license.txt
 echo =You may Modify this WITH consent of the original= >> %CD%\doc\license.txt
 echo = creator, as long as you include a copy of this = >> %CD%\doc\license.txt
@@ -247,14 +247,14 @@ if not exist %CD%\bin\wget.exe call :DOWNLOADWGET
 %CD%\bin\wget.exe https://github.com/MarioMasta64/MinecraftPortable/raw/master/version.txt
 set /p new_version=<version.txt
 if %new_version%==OFFLINE goto ERROROFFLINE
-if %current_version% EQU %new_version% goto LAbeta
+if %current_version% EQU %new_version% goto LATEST
 if %current_version% LSS %new_version% goto NEWUPDATE
 if %current_version% GTR %new_version% goto NEWEST
 goto ERROROFFLINE
-:LAbeta
+:LATEST
 cls
-title PORTABLE MINECRAFT LAUNCHER - LAbeta BUILD :D
-echo you are using the labeta version!!
+title PORTABLE MINECRAFT LAUNCHER - LATEST BUILD :D
+echo you are using the latest version!!
 echo Current Version: v%current_version%
 echo New Version: v%new_version%
 echo ENTER TO CONTINUE
@@ -290,8 +290,8 @@ exit
 :NEWEST
 cls
 cls
-title PORTABLE MINECRAFT LAUNCHER - beta BUILD :0
-echo YOURE USING A beta BUILD MEANING YOURE EITHER
+title PORTABLE MINECRAFT LAUNCHER - TEST BUILD :0
+echo YOURE USING A TEST BUILD MEANING YOURE EITHER
 echo CLOSE TO ME OR YOURE SOME SORT OF PIRATE
 echo Current Version: v%current_version%
 echo New Version: v%new_version%

@@ -11,7 +11,7 @@ if not exist %CD%\doc mkdir %CD%\doc
 if not exist %CD%\extra mkdir %CD%\extra
 if not exist %CD%\data\profiles mkdir %CD%\data\profiles
 :VERSION
-echo 16 > %CD%\doc\version.txt
+echo 18 > %CD%\doc\version.txt
 set /p current_version=<%CD%\doc\version.txt
 :CREDITS
 if exist %CD%\doc\license.txt goto FILECHECK
@@ -91,14 +91,16 @@ echo 2. default profile
 echo 3. launch profile
 echo 4. delete profile
 echo 5. update
-echo 6. exit
+echo 6. about
+echo 7. exit
 set /p choice="enter a number and press enter to confirm: "
 if %choice%==1 goto NEW
 if %choice%==2 goto DEFAULT
 if %choice%==3 goto SELECT
 if %choice%==4 goto DELETE
 if %choice%==5 goto UPDATECHECK
-if %choice%==6 exit
+if %choice%==6 goto ABOUT
+if %choice%==7 exit
 set nag="PLEASE SELECT A CHOICE 1-6"
 goto MENU
 :NEW
@@ -207,6 +209,7 @@ exit
 if not exist %CD%\extra\jPortable_8_Update_121.paf.exe goto DOWNLOADJAVA
 start %CD%\extra\jPortable_8_Update_121.paf.exe
 title READMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADME
+cls
 echo INSTALL JAVA TO %CD%\bin\commonfiles\Java AND PRESS ENTER TO CONTINUE
 pause
 goto JAVACHECK
@@ -270,6 +273,10 @@ echo New Version: v%new_version%
 echo ENTER TO CONTINUE
 pause
 goto MENU
+:ABOUT
+del %CD%\doc\license.txt
+start launcher.bat
+exit
 :ERROROFFLINE
 cls
 set nag="YOU SEEM TO BE OFFLINE PLEASE RECONNECT TO THE INTERNET TO USE THIS FEATURE"

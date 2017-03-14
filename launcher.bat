@@ -1,4 +1,5 @@
 @echo off
+Color 0A
 title PORTABLE MINECRAFT LAUNCHER
 set nag=BE SURE TO TURN CAPS LOCK OFF! (never said it was on just make sure)
 set new_version=OFFLINE
@@ -6,16 +7,19 @@ cls
 if exist replacer.bat del replacer.bat
 del version.txt
 del version.txt.1
+
 :FOLDERCHECK
 cls
 if not exist %CD%\bin mkdir %CD%\bin
 if not exist %CD%\doc mkdir %CD%\doc
 if not exist %CD%\extra mkdir %CD%\extra
 if not exist %CD%\data\profiles mkdir %CD%\data\profiles
+
 :VERSION
 cls
-echo 20 > %CD%\doc\version.txt
+echo 24 > %CD%\doc\version.txt
 set /p current_version=<%CD%\doc\version.txt
+
 :CREDITS
 cls
 if exist %CD%\doc\license.txt goto FILECHECK
@@ -30,31 +34,47 @@ echo ================================================== >> %CD%\doc\license.txt
 echo =    You may also modify this script without     = >> %CD%\doc\license.txt
 echo =         consent for PERSONAL USE ONLY          = >> %CD%\doc\license.txt
 echo ================================================== >> %CD%\doc\license.txt
-start notepad.exe %CD%\doc\license.txt
+
+
+:CREDITSREAD
+cls
+title PORTABLE MINECRAFT LAUNCHER - ABOUT
+setlocal enabledelayedexpansion
+for /f "DELIMS=" %%i in (%CD%\doc\license.txt) do (
+	echo %%i
+)
+endlocal
+pause
+
 :FILECHECK
 cls
-if not exist %CD%\bin\minecraft.jar goto :DOWNLOADMINECRAFT
+if not exist %CD%\bin\minecraft.jar goto DOWNLOADMINECRAFT
 if not exist %CD%\data\.minecraft\launcher.pack.lzma set nag=COPY %APPDATA%\.minecraft TO %CD%\data IF YOU HAVE EXISTRING SAVEDATA AND THEN LAUNCH DEFAULT PROFILE
+
 :WGETUPDATE
 cls
 wget https://eternallybored.org/misc/wget/current/wget.exe
 move wget.exe %CD%\bin\
 goto MENU
+
 :DOWNLOADMINECRAFT
 cls
 if not exist %CD%\bin\wget.exe call :DOWNLOADWGET
 %CD%\bin\wget.exe http://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar
-move %CD%\Minecraft.jar %CD%\bin
+move Minecraft.jar %CD%\bin\
 goto FILECHECK
+
 :DOWNLOADWGET
 cls
 call :CHECKWGETDOWNLOADER
 exit /b
+
 :CHECKWGETDOWNLOADER
 cls
 if not exist %CD%\bin\downloadwget.vbs call :CREATEWGETDOWNLOADER
 if exist %CD%\bin\downloadwget.vbs call :EXECUTEWGETDOWNLOADER
 exit /b
+
 :CREATEWGETDOWNLOADER
 cls
 echo ' Set your settings > %CD%\bin\downloadwget.vbs
@@ -86,11 +106,13 @@ echo End if >> %CD%\bin\downloadwget.vbs
 echo. >> %CD%\bin\downloadwget.vbs
 echo Set objXMLHTTP = Nothing >> %CD%\bin\downloadwget.vbs
 exit /b
+
 :EXECUTEWGETDOWNLOADER
 cls
 cscript.exe %CD%\bin\downloadwget.vbs
 move wget.exe %CD%\bin\
 exit /b
+
 :MENU
 cls
 title PORTABLE MINECRAFT LAUNCHER - MAIN MENU
@@ -113,6 +135,7 @@ if %choice%==6 goto ABOUT
 if %choice%==7 exit
 set nag="PLEASE SELECT A CHOICE 1-6"
 goto MENU
+
 :NEW
 cls
 title PORTABLE MINECRAFT LAUNCHER - NEW PROFILE
@@ -125,6 +148,7 @@ set /p profile="enter a name for the new profile: "
 if %profile%==menu goto MENU
 if exist %CD%\data\%profile% then goto EXIST
 goto CREATE
+
 :CREATE
 cls
 title PORTABLE MINECRAFT LAUNCHER - CREATE PROFILE
@@ -137,6 +161,7 @@ if %choice%==no goto NEWTITLE
 if %choice%==yes goto NOWCREATING
 set nag="please enter YES or NO"
 goto CREATE
+
 :NOWCREATING
 cls
 if exist %CD%\data\profiles\%PROFILE% goto EXISTS
@@ -144,6 +169,7 @@ mkdir %CD%\data\profiles\%PROFILE%
 if exist %CD%\data\profiles\%PROFILE% goto LAUNCH
 set LEGITCHECK="INVALID NAME"
 goto NEW
+
 :EXISTS
 cls
 title PORTABLE MINECRAFT LAUNCHER - LAUNCH PROFILE
@@ -157,10 +183,12 @@ if %choice%==no goto NEWTITLE
 if %choice%==yes goto LAUNCH
 set nag="please enter YES or NO"
 goto EXISTS
+
 :NEWTITLE
 cls
 set nag="ENTER A DIFFERENT TITLE THEN"
 goto NEW
+
 :SELECT
 cls
 title PORTABLE MINECRAFT LAUNCHER - SELECT PROFILE
@@ -175,14 +203,17 @@ if %PROFILE%==default goto DEFAULT
 if exist %CD%\data\profiles\%PROFILE% goto LAUNCH
 set nag=PROFILE "%profile%" DOES NOT EXISTS
 goto CREATE
+
 :LAUNCH
 cls
 set APPDATA=%CD%\data\profiles\%PROFILE%
 goto OSCHECK
+
 :DEFAULT
 cls
 set APPDATA=%CD%\data
 goto OSCHECK
+
 :DELETE
 cls
 title PORTABLE MINECRAFT LAUNCHER - DELETE PROFILE
@@ -197,15 +228,27 @@ if %profile%==menu goto MENU
 if %profile%==default goto DELETEMAIN
 set nag=PROFILE %profile% DOES NOT EXIST
 goto DELETE
+
 :NOWDELETING
 cls
 rmdir /s %CD%\data\profiles\%PROFILE%
 goto MENU
+
 :DELETEMAIN
 cls
 ECHO TO PROTECT MY SAVES I MADE THIS THE HARDEST OPTION TO DO. PLEASE LEAVE THE COMPUTER. > %CD%\doc\README.TXT
-START NOTEPAD.EXE %CD%\doc\README.TXT
+
+:CREDITSREAD
+cls
+title PORTABLE MINECRAFT LAUNCHER - WARNING
+setlocal enabledelayedexpansion
+for /f "DELIMS=" %%i in (%CD%\doc\readme.txt) do (
+	echo %%i
+)
+endlocal
+pause
 goto MENU
+
 :OSCHECK
 cls
 title PORTABLE MINECRAFT LAUNCHER - JAVA
@@ -214,32 +257,38 @@ echo press enter afterwards
 set /p choice="choice: "
 if %choice%==y goto JAVALAUNCH
 goto JAVACHECK
+
 :JAVALAUNCH
 cls
 start %CD%\bin\Minecraft.jar
 exit
+
 :JAVACHECK
 cls
 if not exist %CD%\bin\commonfiles\java\bin\javaw.exe goto JAVAINSTALLERCHECK
 start "" "%CD%\bin\commonfiles\java\bin\javaw.exe" -jar "%CD%\bin\Minecraft.jar
 exit
+
 :JAVAINSTALLERCHECK
 cls
 if not exist %CD%\extra\jPortable_8_Update_121.paf.exe goto DOWNLOADJAVA
-start %CD%\extra\jPortable_8_Update_121.paf.exe
+start %CD%\extra\jPortable_8_Update_121.paf.exe /destination=%CD%\bin\
 title READMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADME
-echo INSTALL JAVA TO %CD%\bin\commonfiles\Java AND PRESS ENTER TO CONTINUE
+echo go through the install directions as it says then press enter to continue
 pause
 goto JAVACHECK
+
 :DOWNLOADJAVA
 cls
 if exist jPortable_8_Update_121.paf.exe goto MOVEJAVA
 if not exist %CD%\bin\wget.exe call :DOWNLOADWGET
 %CD%\bin\wget.exe http://downloads.sourceforge.net/portableapps/jPortable_8_Update_121.paf.exe
+
 :MOVEJAVA
 cls
 move jPortable_8_Update_121.paf.exe %CD%\extra\jPortable_8_Update_121.paf.exe
 goto JAVAINSTALLERCHECK
+
 :UPDATECHECK
 cls
 if exist version.txt del version.txt
@@ -251,6 +300,7 @@ if %current_version% EQU %new_version% goto LATEST
 if %current_version% LSS %new_version% goto NEWUPDATE
 if %current_version% GTR %new_version% goto NEWEST
 goto ERROROFFLINE
+
 :LATEST
 cls
 title PORTABLE MINECRAFT LAUNCHER - LATEST BUILD :D
@@ -260,6 +310,7 @@ echo New Version: v%new_version%
 echo ENTER TO CONTINUE
 pause
 goto MENU
+
 :NEWUPDATE
 cls
 echo %NAG%
@@ -274,12 +325,14 @@ if %choice%==yes goto UPDATE
 if %choice%==no goto MENU
 set nag="please enter YES or NO"
 goto NEWUPDATE
+
 :UPDATE
 cls
 if not exist %CD%\bin\wget.exe call :DOWNLOADWGET
 %CD%\bin\wget.exe https://raw.githubusercontent.com/MarioMasta64/MinecraftPortable/master/launcher.bat
 if exist launcher.bat.1 goto REPLACERCREATE
 goto ERROROFFLINE
+
 :REPLACERCREATE
 cls
 echo del launcher.bat >> replacer.bat
@@ -287,6 +340,7 @@ echo rename launcher.bat.1 launcher.bat >> replacer.bat
 echo start launcher.bat >> replacer.bat
 start replacer.bat
 exit
+
 :NEWEST
 cls
 cls
@@ -299,15 +353,18 @@ echo ENTER TO CONTINUE
 pause
 start launcher.bat
 exit
+
 :ABOUT
 cls
 del %CD%\doc\license.txt
 start launcher.bat
 exit
+
 :ERROROFFLINE
 cls
 set nag="YOU SEEM TO BE OFFLINE PLEASE RECONNECT TO THE INTERNET TO USE THIS FEATURE"
 goto MENU
+
 :ERROR
 cls
 echo ERROR OCCURED

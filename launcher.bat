@@ -17,7 +17,7 @@ if not exist %CD%\data\profiles mkdir %CD%\data\profiles
 
 :VERSION
 cls
-echo 24 > %CD%\doc\version.txt
+echo 25 > %CD%\doc\version.txt
 set /p current_version=<%CD%\doc\version.txt
 
 :CREDITS
@@ -256,23 +256,27 @@ echo type y for system or anything else for portable java
 echo press enter afterwards
 set /p choice="choice: "
 if %choice%==y goto JAVALAUNCH
-goto JAVACHECK
+goto ARCHCHECK
 
 :JAVALAUNCH
 cls
 start %CD%\bin\Minecraft.jar
 exit
 
+:ARCHCHECK
+set arch=
+if exist "%PROGRAMFILES(X86)%" set arch=64
+
 :JAVACHECK
 cls
-if not exist %CD%\bin\commonfiles\java\bin\javaw.exe goto JAVAINSTALLERCHECK
-start "" "%CD%\bin\commonfiles\java\bin\javaw.exe" -jar "%CD%\bin\Minecraft.jar
+if not exist %CD%\bin\commonfiles\java%arch%\bin\javaw.exe goto JAVAINSTALLERCHECK
+start "" "%CD%\bin\commonfiles\java%arch%\bin\javaw.exe" -jar "%CD%\bin\Minecraft.jar
 exit
 
 :JAVAINSTALLERCHECK
 cls
-if not exist %CD%\extra\jPortable_8_Update_121.paf.exe goto DOWNLOADJAVA
-start %CD%\extra\jPortable_8_Update_121.paf.exe /destination=%CD%\bin\
+if not exist %CD%\extra\jPortable%arch%_8_Update_121.paf.exe goto DOWNLOADJAVA
+start %CD%\extra\jPortable%arch%_8_Update_121.paf.exe /destination=%CD%\bin\
 title READMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADMEREADME
 echo go through the install directions as it says then press enter to continue
 pause
@@ -280,13 +284,13 @@ goto JAVACHECK
 
 :DOWNLOADJAVA
 cls
-if exist jPortable_8_Update_121.paf.exe goto MOVEJAVA
+if exist jPortable%arch%_8_Update_121.paf.exe goto MOVEJAVA
 if not exist %CD%\bin\wget.exe call :DOWNLOADWGET
-%CD%\bin\wget.exe http://downloads.sourceforge.net/portableapps/jPortable_8_Update_121.paf.exe
+%CD%\bin\wget.exe http://downloads.sourceforge.net/portableapps/jPortable%arch%_8_Update_121.paf.exe
 
 :MOVEJAVA
 cls
-move jPortable_8_Update_121.paf.exe %CD%\extra\jPortable_8_Update_121.paf.exe
+move jPortable%arch%_8_Update_121.paf.exe %CD%\extra\jPortable%arch%_8_Update_121.paf.exe
 goto JAVAINSTALLERCHECK
 
 :UPDATECHECK
